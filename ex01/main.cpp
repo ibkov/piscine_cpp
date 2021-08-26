@@ -18,7 +18,7 @@ int add_new_number(Phonebook *pb)
     static int index = 1;
     Contact new_contact = Contact();
     
-    std::cout << "Enter first name: ";
+    std::cout << "\n\033[33mEnter first name: ";
     std::cin >> new_contact.first_name;
     std::cout << "Enter last name: ";
     std::cin >> new_contact.last_name;
@@ -28,7 +28,7 @@ int add_new_number(Phonebook *pb)
     std::cin >> new_contact.phone;
     std::cout << "Enter secret: ";
     std::cin >> new_contact.secret;
-    std::cout << "\nContact added\n";
+    std::cout << "\033[32m\nContact added\n\033[0m";
     std::cout << "\nUse following commands:" << std::endl;
     std::cout << "\nADD | ";
     std::cout << "SEARCH | ";
@@ -49,7 +49,7 @@ void print_cut_str(std::string str)
 
 void search_number(Phonebook new_phonebook, int count)
 {
-    std::cout << "---------------------------------------------" << std::endl;
+    std::cout << "\033[36m---------------------------------------------" << std::endl;
     std::cout << "|" << std::right << std::setw(11) << "index|"
     << std::right << std::setw(11) << "first name|"
     << std::right << std::setw(11) << "last name|"
@@ -62,9 +62,8 @@ void search_number(Phonebook new_phonebook, int count)
         print_cut_str(new_phonebook.phonebook[i].last_name);
         print_cut_str(new_phonebook.phonebook[i].nickname);
         std::cout << std::endl;
-        std::cout << "---------------------------------------------" << std::endl;;
-    } 
-    
+        std::cout << "---------------------------------------------\033[0m" << std::endl;;
+    }
 }
 
 int main()
@@ -87,7 +86,7 @@ int main()
         }
         else
         {
-            std::cout << "\nError use following commands: ADD, SEARCH, EXIT" << std::endl;
+            std::cout << "\n\033[31mError use following commands: ADD, SEARCH, EXIT\033[0m" << std::endl;
         }
     }
     return (0);
