@@ -1,15 +1,14 @@
 #include "Contact.class.hpp"
 #include "Phonebook.class.hpp"
+#include <ctype.h>
 
 
 static void menu(void)
 {
-    std::cout << "\n***PHONEBOOK***\n";
-    std::cout << std::endl;
     std::cout << "Use following commands:" << std::endl;
     std::cout << "\nADD | ";
     std::cout << "SEARCH | ";
-    std::cout << "EXIT" << std::endl;
+    std::cout << "EXIT\033[0m" << std::endl;
     std::cout << std::endl;
 }
 
@@ -28,11 +27,7 @@ int add_new_number(Phonebook *pb)
     std::cin >> new_contact.phone;
     std::cout << "Enter secret: ";
     std::cin >> new_contact.secret;
-    std::cout << "\033[32m\nContact added\n\033[0m";
-    std::cout << "\nUse following commands:" << std::endl;
-    std::cout << "\nADD | ";
-    std::cout << "SEARCH | ";
-    std::cout << "EXIT" << std::endl;
+    std::cout << "\033[32m\nContact added\n\n\033[0m";
     new_contact.index = index;
     pb->phonebook[(index - 1) % 8] = new_contact;
     index++;
@@ -45,6 +40,36 @@ void print_cut_str(std::string str)
         std::cout << std::right << std::setfill(' ') << std::setw(10) << str.substr(0,9).append(".") << "|";
     else
         std::cout << std::right << std::setfill(' ') << std::setw(10) << str << "|";
+}
+
+void show_all_info(int index, Phonebook pb)
+{
+    std::string cin_str;
+    int cin_index;
+
+    while (1)
+    {
+        std::cout << "\033[0mEnter index contact or '-1' to exit \"SEARCH\": ";
+        std::cin >> cin_str;
+        if (cin_str == "-1")
+            break;
+        if (isdigit(cin_str[0]) && atoi(&cin_str[0]) > 0)
+            cin_index = atoi(&cin_str[0]);
+        else
+            cin_index = 10; 
+        if (cin_index <= index)
+        {
+            cin_index = cin_index % 8;
+            std::cout << "Index: " << pb.phonebook[cin_index - 1].index << std::endl;
+            std::cout << "First name: " << pb.phonebook[cin_index - 1].first_name << std::endl;
+            std::cout << "Last name: " << pb.phonebook[cin_index - 1].last_name << std::endl;
+            std::cout << "Nickname: " << pb.phonebook[cin_index - 1].nickname << std::endl;
+            std::cout << "Phone: " << pb.phonebook[cin_index - 1].phone << std::endl;
+            std::cout << "Darkest secret: " << pb.phonebook[cin_index - 1].secret << std::endl;
+        }
+        else
+            std::cout << "\n\033[31mThis index was not exist. Correct your input.\n\033[0m" << std::endl;
+    }
 }
 
 void search_number(Phonebook new_phonebook, int count)
@@ -62,8 +87,9 @@ void search_number(Phonebook new_phonebook, int count)
         print_cut_str(new_phonebook.phonebook[i].last_name);
         print_cut_str(new_phonebook.phonebook[i].nickname);
         std::cout << std::endl;
-        std::cout << "---------------------------------------------\033[0m" << std::endl;;
+        std::cout << "---------------------------------------------" << std::endl;;
     }
+    show_all_info(count, new_phonebook);
 }
 
 int main()
@@ -71,9 +97,11 @@ int main()
     Phonebook new_phonebook;
     std::string cmd;
     int count_numbers = 0;
-    menu();
+    std::cout << "\033[32m\n***PHONEBOOK***\n\033[0m";
+    std::cout << std::endl;
     while (1)
     {
+        menu();
         std::cin >> cmd;
         if (cmd == "EXIT")
             break;
@@ -86,7 +114,7 @@ int main()
         }
         else
         {
-            std::cout << "\n\033[31mError use following commands: ADD, SEARCH, EXIT\033[0m" << std::endl;
+            std::cout << "\n\033[31mError! ";
         }
     }
     return (0);
