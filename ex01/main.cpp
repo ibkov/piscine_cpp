@@ -1,7 +1,5 @@
 #include "Contact.class.hpp"
 #include "Phonebook.class.hpp"
-#include <ctype.h>
-
 
 static void menu(void)
 {
@@ -12,7 +10,7 @@ static void menu(void)
     std::cout << std::endl;
 }
 
-int add_new_number(Phonebook *pb)
+int add_new_number(Phonebook *pb, int c)
 {
     static int index = 1;
     Contact new_contact = Contact();
@@ -29,9 +27,14 @@ int add_new_number(Phonebook *pb)
     std::cin >> new_contact.secret;
     std::cout << "\033[32m\nContact added\n\n\033[0m";
     new_contact.index = index;
-    pb->phonebook[(index - 1) % 8] = new_contact;
+    pb->phonebook[(index - 1)] = new_contact;
     index++;
-    return (1);
+    if (index > 8)
+        index = 1;
+    if (c < 8)
+        return (1);
+    else
+        return (0);
 }
 
 void print_cut_str(std::string str)
@@ -59,7 +62,6 @@ void show_all_info(int index, Phonebook pb)
             cin_index = 10; 
         if (cin_index <= index)
         {
-            cin_index = cin_index % 8;
             std::cout << "Index: " << pb.phonebook[cin_index - 1].index << std::endl;
             std::cout << "First name: " << pb.phonebook[cin_index - 1].first_name << std::endl;
             std::cout << "Last name: " << pb.phonebook[cin_index - 1].last_name << std::endl;
@@ -96,7 +98,7 @@ int main()
 {
     Phonebook new_phonebook;
     std::string cmd;
-    int count_numbers = 0;
+    int cn = 0;
     std::cout << "\033[32m\n***PHONEBOOK***\n\033[0m";
     std::cout << std::endl;
     while (1)
@@ -108,9 +110,9 @@ int main()
         else if (cmd == "ADD" || cmd == "SEARCH")
         {
             if (cmd == "ADD")
-                count_numbers += add_new_number(&new_phonebook);
+                cn += add_new_number(&new_phonebook, cn);
             else
-                search_number(new_phonebook, count_numbers);
+                search_number(new_phonebook, cn);
         }
         else
         {
