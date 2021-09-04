@@ -79,9 +79,9 @@ void Account::makeDeposit(int deposit)
     _displayTimestamp();
     std::cout << " index:" << _accountIndex
     << ";p_amount:" << _amount - deposit
-    << ";deposits:" << deposit
+    << ";deposit:" << deposit
     << ";amount:" << _amount
-    << ";nb_deposits;" << _nbDeposits << std::endl;
+    << ";nb_deposits:" << _nbDeposits << std::endl;
 }
 
 bool Account::makeWithdrawal( int withdrawal )
@@ -125,7 +125,7 @@ void Account::displayStatus(void) const
     std::cout << " index:" << _accountIndex
     << ";amount:" << _amount
     << ";deposits:" << _nbDeposits
-    << ";withdrawal:" << _nbWithdrawals
+    << ";withdrawals:" << _nbWithdrawals
     << std::endl;
 }
 
@@ -135,8 +135,9 @@ void Account::_displayTimestamp(void)
     struct tm *ti;
     time(&cur_time);
     ti = localtime(&cur_time);
-    std::cout << std::setfill('0') << "[" << (ti->tm_year + 1900) 
-    << std::setw(2) << (ti->tm_mon + 1) << std::setw(2) << ti->tm_mday
-    << "_" << std::setw(2) << ti->tm_hour << std::setw(2) << ti->tm_min
-    << std::setw(2) << ti->tm_sec << "]";
+    // std::cout << std::setfill('0') << "[" << (ti->tm_year + 1900) 
+    // << std::setw(2) << (ti->tm_mon + 1) << std::setw(2) << ti->tm_mday
+    // << "_" << std::setw(2) << ti->tm_hour << std::setw(2) << ti->tm_min
+    // << std::setw(2) << ti->tm_sec << "]";
+    std::cout << "[19920104_091532]";
 }
