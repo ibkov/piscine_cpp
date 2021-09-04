@@ -1,13 +1,12 @@
-SRCS			= 	Account.cpp \
-					tests.cpp \
+SRCS			= 	megaphone.cpp
 
 OBJS			= $(SRCS:.cpp=.o)
 
 CC				= clang++
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror -I.
+CFLAGS			= -Wall -Wextra -Werror -I. -std=c++98
 
-NAME			= Account
+NAME			= megaphone
 
 all:			$(NAME)
 

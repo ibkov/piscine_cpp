@@ -1,12 +1,14 @@
-SRCS			= 	megaphone.cpp
+SRCS			= 	main.cpp \
+					Contact.class.cpp \
+					Phonebook.class.cpp
 
 OBJS			= $(SRCS:.cpp=.o)
 
 CC				= clang++
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror -I.
+CFLAGS			= -Wall -Wextra -Werror -I. -std=c++98
 
-NAME			= megaphone
+NAME			= phonebook
 
 all:			$(NAME)
 

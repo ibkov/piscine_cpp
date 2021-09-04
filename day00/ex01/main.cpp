@@ -14,19 +14,25 @@ int add_new_number(Phonebook *pb, int c)
 {
     static int index = 1;
     Contact new_contact = Contact();
+    std::string temp;
     
     std::cout << "\n\033[33mEnter first name: ";
-    std::cin >> new_contact.first_name;
+    std::cin >> temp;
+    new_contact.setFirstName(temp);
     std::cout << "Enter last name: ";
-    std::cin >> new_contact.last_name;
+    std::cin >> temp;
+    new_contact.setLastName(temp);
     std::cout << "Enter last nickname: ";
-    std::cin >> new_contact.nickname;
+    std::cin >> temp;
+    new_contact.setNickName(temp);
     std::cout << "Enter phone number: ";
-    std::cin >> new_contact.phone;
+    std::cin >> temp;
+    new_contact.setPhone(temp);
     std::cout << "Enter secret: ";
-    std::cin >> new_contact.secret;
+    std::cin >> temp;
+    new_contact.setSecret(temp);
     std::cout << "\033[32m\nContact added\n\n\033[0m";
-    new_contact.index = index;
+    new_contact.setIndex(index);
     pb->phonebook[(index - 1)] = new_contact;
     index++;
     if (index > 8)
@@ -62,12 +68,12 @@ void show_all_info(int index, Phonebook pb)
             cin_index = 10; 
         if (cin_index <= index)
         {
-            std::cout << "Index: " << pb.phonebook[cin_index - 1].index << std::endl;
-            std::cout << "First name: " << pb.phonebook[cin_index - 1].first_name << std::endl;
-            std::cout << "Last name: " << pb.phonebook[cin_index - 1].last_name << std::endl;
-            std::cout << "Nickname: " << pb.phonebook[cin_index - 1].nickname << std::endl;
-            std::cout << "Phone: " << pb.phonebook[cin_index - 1].phone << std::endl;
-            std::cout << "Darkest secret: " << pb.phonebook[cin_index - 1].secret << std::endl;
+            std::cout << "Index: " << pb.phonebook[cin_index - 1].getIndex() << std::endl;
+            std::cout << "First name: " << pb.phonebook[cin_index - 1].getFirstName() << std::endl;
+            std::cout << "Last name: " << pb.phonebook[cin_index - 1].getLastName() << std::endl;
+            std::cout << "Nickname: " << pb.phonebook[cin_index - 1].getNickName() << std::endl;
+            std::cout << "Phone: " << pb.phonebook[cin_index - 1].getPhone() << std::endl;
+            std::cout << "Darkest secret: " << pb.phonebook[cin_index - 1].getSecret() << std::endl;
         }
         else
             std::cout << "\n\033[31mThis index was not exist. Correct your input.\n\033[0m" << std::endl;
@@ -84,10 +90,10 @@ void search_number(Phonebook new_phonebook, int count)
     std::cout << "---------------------------------------------" << std::endl;
     for (int i = 0; i < count; i++)
     {
-        std::cout  << "|" << std::right << std::setfill(' ') << std::setw(10) << new_phonebook.phonebook[i].index << "|";
-        print_cut_str(new_phonebook.phonebook[i].first_name);
-        print_cut_str(new_phonebook.phonebook[i].last_name);
-        print_cut_str(new_phonebook.phonebook[i].nickname);
+        std::cout  << "|" << std::right << std::setfill(' ') << std::setw(10) << new_phonebook.phonebook[i].getIndex() << "|";
+        print_cut_str(new_phonebook.phonebook[i].getFirstName());
+        print_cut_str(new_phonebook.phonebook[i].getLastName());
+        print_cut_str(new_phonebook.phonebook[i].getNickName());
         std::cout << std::endl;
         std::cout << "---------------------------------------------" << std::endl;;
     }
